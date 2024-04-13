@@ -1,0 +1,11 @@
+Socket Programming and Networking:
+Guide to Network Concepts  -- https://beej.us/guide/bgnet0
+Guide to Network Programming -- https://beej.us/guide/bgnet/
+
+
+
+
+
+Code to Learn From:
+https://github.com/TalalAlsaiaari/ft_irc/tree/main
+https://github.com/infraredCoding/cerveur
