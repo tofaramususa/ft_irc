@@ -6,7 +6,7 @@
 /*   By: tofaramususa <tofaramususa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:48:38 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/07/03 14:50:14 by tofaramusus      ###   ########.fr       */
+/*   Updated: 2024/07/11 19:38:24 by tofaramusus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,21 @@ class Channel
 		void removeUserLimit();
 		
 		//GETTERS
-		std::string getKey( void );
-		std::map<std::string, Client *> getUsers();
-		int		getUserLimit();
+		std::string getKey( void ) const;
+		std::map<std::string, Client *> getUsers() const;
+		std::string  getUsersList();
+		int		getUserLimit() const;
 		std::string getModes() const;
 		std::string getChannelName() const;
 		std::string getTopic() const;
+		std::map<char, bool> getModesMap() const;
 
 		//SETTERS
 		void setTopic(std::string &topic);
 		// void setTopicRestricted(bool topicRestricted, Client* client);
 		void setUserLimit(int limit);
 		void setKey(std::string &password);
-		void setMode(char c, bool setting);
+		bool setMode(char c, bool setting);
 
 		//CHECK FUNCTIONS
 		bool isClientInChannel(std::string nickname);

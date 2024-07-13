@@ -47,9 +47,9 @@ void Server::inviteCommand(Client *client, const ParseMessage &ParsedMsg)
         client->serverReplies.push_back(response);
         return;
     }
-    channel.inviteClient(targetClient);
-    response = RPL_INVITING(std::string("localhost"), client->getNickname(), targetNickname, channelName);
-    client->serverReplies.push_back(response);
-    std::string inviteMessage = ":" + client->getNickname() + "!" + client->getUsername() + "@" + " INVITE " + targetNickname + " " + channelName;
-    targetClient->serverReplies.push_back(inviteMessage);
+	channel.inviteClient(targetClient);
+    response = RPL_INVITE(user_id(client->getNickname(), client->getUsername()), targetClient->getNickname(), channelName);
+    targetClient->serverReplies.push_back(response);
+	std::string inviteMessage = RPL_INVITING(user_id(client->getNickname(),  client->getUsername()), client->getNickname(), targetNickname, channelName);
+    client->serverReplies.push_back(inviteMessage);
 }

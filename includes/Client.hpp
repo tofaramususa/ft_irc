@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tofaramususa <tofaramususa@student.42.f    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:37:35 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/07/03 00:14:00 by tofaramusus      ###   ########.fr       */
+/*   Updated: 2024/07/12 17:24:14 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ class Client {
 		// std::string					_ip;
 		std::string					_nickname;
 		std::string					_username;
-		// std::string					_realname;
 		std::string					_channel;
 		
 
 	public:
-
+		
+		bool						isRegistered;
 		std::vector<std::string>	serverReplies;
-
+		bool	conRegi[3];
 		Client( void );
 		Client( int fd );
 
@@ -58,7 +58,6 @@ class Client {
 		bool		getIsCorrectPassword( void ) const;
 		// std::string getIp( void ) const;
 		int			getFd( void ) const;
-		bool		isRegistered( void ) const;
 };
 
 #endif /* CLIENT_HPP */

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:55:22 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/06/14 14:15:27 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/07/08 18:57:47 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,32 @@ int main( int ac, char* av[] ) {
 		std::cerr << "Server's password is not given" << std::endl;
 		return -3;
 	}
-
+	
+	Server *server = NULL;
 		// Initialize and run the server
 	try {
 
-		Server::setServerPassword( password );
-		Server::setServerPort( portNum );
-		Server::initServer();
-		Server::runServer();
+		server = Server::getInstance();
+		server->setServerPassword( password );
+		server->setServerPort( portNum );
+		server->initServer();
+		server->runServer();
 	} catch ( const IrcException &e ) {
 
 		std::cerr << "Server error: " << e.what() << std::endl;
+		delete server;
 		return -4;
 	} catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << std::endl;
+		delete server;
         return -5;
     } catch (...) {
         std::cerr << "Unknown error occurred." << std::endl;
+		delete server;
         return -6;
     }
+
+	delete server;
 
 	return 0;
 }

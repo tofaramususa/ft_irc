@@ -53,6 +53,7 @@
 #define ERR_CANNOTSENDTOCHAN(client, channel) ("404 " + client + " " + channel + " :Cannot send to channel\r\n")
 #define ERR_CHANNELISFULL(client, channel) ("471 " + client + " " + channel + " :Cannot join channel (+l)\r\n")
 #define ERR_CHANOPRIVSNEEDED(client, channel) (":localhost 482 " + client + " " + channel + " :You're not channel operator\r\n")
+#define ERR_WRONGMODEPARAMS(client, channel, mode) (":localhost 482 " + client + " " + channel + " :Not the correct type of parameters given for " + mode "\r\n")
 #define ERR_INVALIDMODEPARAM(client, channel, mode, password) ("696 " + client + " " + channel + " " + mode + " " + password + " : password must only contained alphabetic character\r\n")
 // RPL_ERR a broadcoast quand user pas +v ou operator veut parler
       // dans notre cas c'était tiff (client) qui voulait send a message

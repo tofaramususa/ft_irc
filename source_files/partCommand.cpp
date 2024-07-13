@@ -11,7 +11,7 @@ void Server::partCommand(Client *client, const ParseMessage &ParsedMsg)
     }
 
     std::vector<std::string> chan_list = ft_split(params[0], ',');
-    std::string reason = params.size() > 1 ? params[1] : "";
+    std::string reason = ParsedMsg.getTrailing().size() ? ParsedMsg.getTrailing() : "";
 
     for (std::vector<std::string>::iterator itr_chan = chan_list.begin(); itr_chan != chan_list.end(); ++itr_chan)
     {
@@ -28,14 +28,12 @@ void Server::partCommand(Client *client, const ParseMessage &ParsedMsg)
                 response = ERR_NOTONCHANNEL(client->getNickname(), chanName);
             }
             else {
-                std::string partMsg = user_id(client->getNickname(), client->getUsername()) + chanName + "\r\n";
-                partMsg += reason.empty() ? "" : " :" + reason;
-
-                tempChannel.sendToOthers(client, partMsg);
+                std::string partMsg = RPL_PART(user_id(client->getNickname(), client->getUsername()), tempChannel.getChannelName(), reason);
+                tempChannel.broadcastMessage(partMsg);
                 tempChannel.removeClient(client);
                 if (tempChannel.getUsers().empty())
 				{
-                    _channels.erase(chanName);//delete the channel
+                    _channels.erase(chanName);
                 }
                 client->serverReplies.push_back(partMsg);
                 continue;

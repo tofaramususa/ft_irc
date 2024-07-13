@@ -41,7 +41,7 @@ void Server::kickCommand(Client *client, const ParseMessage &ParsedMsg)
         }
         Client *targetClient = getClient(targetNick);
 
-        if (!targetClient && !channel.isClientInChannel(targetNick)) {
+        if (!targetClient || !channel.isClientInChannel(targetNick)) {
             client->serverReplies.push_back(ERR_USERNOTINCHANNEL(client->getNickname(), targetNick, channelName));
             continue;
         }
