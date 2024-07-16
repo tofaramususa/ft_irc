@@ -33,5 +33,19 @@ void 	Server::nickCommand(Client *client, const std::vector<std::string> &params
        client->serverReplies.push_back(RPL_NICK(client->getNickname(),client->getUsername(), newNick));
     }
 	_nicknames.push_back(newNick);
+	//add function update nicknames in channels
+	// Check all channels in server where that client is joined currently
+	for (std::map<std::string, Channel>::iterator it = _channels.begin(); it != _channels.end(); ++it)
+	{
+		if (it->second.isClientInChannel(client->getNickname()))
+		{	
+			it->second.updateNickname(client->getNickname(), newNick);
+		} else if (it->second.isInvited(client->getNickname()))
+		{
+			it->second.updateNickname(client->getNickname(), newNick);
+		}
+	}
+	// If client is in channel, update the nickname in that channel
+
 	client->setNickname(newNick);
 }

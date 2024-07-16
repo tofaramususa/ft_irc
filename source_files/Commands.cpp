@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Commands.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tofaramususa <tofaramususa@student.42.f    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 07:48:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/07/12 19:44:10 by tofaramusus      ###   ########.fr       */
+/*   Updated: 2024/07/15 16:44:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,6 @@ bool Server::handlePassCommand(Client *client, const std::vector<std::string> &p
         } else 
 		{
             client->serverReplies.push_back(ERR_PASSWDMISMATCH(std::string("ircserver")));
-            // closeClient(client->getFd());
-            // client->setFd(-1);
-			//ADD message to say try again password
-			// throw(std::exception());
         }
     } else {
         client->serverReplies.push_back(ERR_ALREADYREGISTERED(std::string("ircserver")));
@@ -148,7 +144,7 @@ void Server::processCommand(Client *client, const ParseMessage &parsedMsg)
 	displayCommand(parsedMsg);
 	command = parsedMsg.getCmd();
 	params = parsedMsg.getParams();
-	if(params.size() < 1 && parsedMsg.getTrailing().empty() == true && command != "PING" &&  command != "QUIT" && command != "motd")
+	if(params.size() < 1 && parsedMsg.getTrailing().empty() == true && command != "QUIT" && command != "motd")
 	{
 		 client->serverReplies.push_back(ERR_NEEDMOREPARAMS(std::string("ircserver") ,command));
 		 return;
@@ -178,7 +174,7 @@ void Server::processCommand(Client *client, const ParseMessage &parsedMsg)
 		{
 			privateMessage(client, parsedMsg);	
 		}
-		else if(command == "PING")
+		else if(command == "PING" && params.size() > 0)
 		{
 			 client->serverReplies.push_back(RPL_PONG(user_id(client->getNickname(),client->getUsername()),params[0]));
 		}

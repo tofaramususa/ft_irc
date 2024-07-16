@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:42:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/07/12 17:24:25 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/07/15 16:44:37 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ Client::Client( void ) :	_fd( 0 ),
 							_isCorrectPassword( false ),
 							_nickname( "" ),
 							_username( "" ),
-							// _realname( "" ),
 							_channel( "" ) {
 	memset(conRegi, 0, 3);
 	isRegistered = false;
@@ -27,7 +26,6 @@ Client::Client( int fd ) :	_fd( fd ),
 													_isCorrectPassword( false ),
 													_nickname( "" ),
 													_username( "" ),
-													// _realname( "" ),
 													_channel( "" ) {
 	memset(conRegi, 0, 3);
 	isRegistered = false;
@@ -43,8 +41,6 @@ bool		Client::sendMessage( const std::string &message ) {
 
 	return true;
 }
-
-// 	return _isCorrectPassword && _username != "" && _nickname != "";
 
 void		Client::setIsCorrectPassword( bool isCorrectPassword ) {
 

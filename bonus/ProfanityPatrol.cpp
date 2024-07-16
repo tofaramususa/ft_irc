@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 16:04:31 by shamzaou@st       #+#    #+#             */
-/*   Updated: 2024/07/12 20:43:59 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:56:05 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,19 @@ bool ProfanityPatrol::processMessages() {
             if (line.find("PING") == 0) {
                 sendMessage("PONG" + line.substr(4));
             } else if (line.find("INVITE") != std::string::npos) {
-                size_t channelPos = line.rfind(':');
+                std::size_t channelPos = line.rfind(':');
                 if (channelPos != std::string::npos) {
                     std::string channel = line.substr(channelPos + 1);
                     handleInvite(channel);
                 }
             } else {
-                size_t channelPos = line.find('#');
+                std::size_t channelPos = line.find('#');
                 if (channelPos != std::string::npos) {
-                    size_t spacePos = line.find(' ', channelPos);
+                    std::size_t spacePos = line.find(' ', channelPos);
                     if (spacePos != std::string::npos) {
                         std::string channel = line.substr(channelPos, spacePos - channelPos);
                         // Trim any trailing characters that aren't part of the channel name
-                        size_t endPos = channel.find_first_of(" \t\r\n");
+                        std::size_t endPos = channel.find_first_of(" \t\r\n");
                         if (endPos != std::string::npos) {
                             channel = channel.substr(0, endPos);
                         }

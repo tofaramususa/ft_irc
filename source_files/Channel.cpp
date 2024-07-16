@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tofaramususa <tofaramususa@student.42.f    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:50:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/07/11 19:38:14 by tofaramusus      ###   ########.fr       */
+/*   Updated: 2024/07/15 16:44:16 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void Channel::addClient(Client *client)
 {
 	std::string nick = client->getNickname();
 	users[nick] = client;
-	if(isInInvite(nick))
+	if(isInvited(nick))
 	{
 		inviteList.erase(nick);
 	}
@@ -75,7 +75,7 @@ bool Channel::isClientInChannel(std::string nickname)
 	return false;
 }
 
-bool Channel::isInInvite(std::string nickname)
+bool Channel::isInvited(std::string nickname)
 {
 	if (this->inviteList.find(nickname) != inviteList.end())
 	{
@@ -270,8 +270,8 @@ void Channel::removeClient(Client *client)
 
 std::string ft_trim(std::string text)
 {
-    size_t first = text.find_first_not_of(" \n\r\t");
-    size_t last = text.find_last_not_of(" \n\r\t");
+    std::size_t first = text.find_first_not_of(" \n\r\t");
+    std::size_t last = text.find_last_not_of(" \n\r\t");
 
     if (first == std::string::npos || last == std::string::npos) {
         return "";
@@ -281,7 +281,6 @@ std::string ft_trim(std::string text)
 
 void	Server::addChannel(Channel &channel)
 {
-	// _channels[channel.getChannelName()] = channel;
 	_channels.insert(std::make_pair(channel.getChannelName(), channel));
 }
 
@@ -311,6 +310,31 @@ std::string Channel::getUsersList()
         memberList += currentMember->getNickname() + " ";
     }
     return ft_trim(memberList);
+}
+
+void Channel::updateNickname(std::string oldNick, std::string newNick)
+{
+	std::map<std::string, Client *>::iterator user_itr = this->users.find(oldNick);
+	if(user_itr != this->users.end())
+	{
+		Client *client = user_itr->second;
+		this->users.erase(user_itr);
+		this->users[newNick] = client;
+	}
+	std::map<std::string, Client *>::iterator operator_itr = this->operators.find(oldNick);
+	if(operator_itr != this->operators.end())
+	{
+		Client *client = operator_itr->second;
+		this->operators.erase(operator_itr);
+		this->operators[newNick] = client;
+	}
+	std::map<std::string, Client *>::iterator invite_itr = this->inviteList.find(oldNick);
+	if (invite_itr != this->inviteList.end()) {
+
+		Client *client = invite_itr->second;
+		this->inviteList.erase(invite_itr);
+		this->inviteList[newNick] = client;
+	}
 }
 
 std::map<std::string, Client *> operators;

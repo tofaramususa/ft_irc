@@ -34,7 +34,6 @@ void Server::noticeCommand(Client *client, const ParseMessage &parsedMsg)
             {
                 continue;
             }
-            // Client *recipientClient = getClient(receiver);
             getClient(receiver)->serverReplies.push_back(RPL_NOTICE(client->getNickname(), client->getUsername(), receiver, trailing));
         }
     }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tofaramususa <tofaramususa@student.42.f    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:48:38 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/07/11 19:38:24 by tofaramusus      ###   ########.fr       */
+/*   Updated: 2024/07/15 16:26:48 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ class Channel
 		void removeOperator(std::string nickname);
 		void removeKey();
 		void removeUserLimit();
+
+		void	updateNickname(std::string oldNick, std::string newNick);
 		
 		//GETTERS
 		std::string getKey( void ) const;
@@ -70,7 +72,7 @@ class Channel
 		//CHECK FUNCTIONS
 		bool isClientInChannel(std::string nickname);
 		bool isOperator(std::string &nickname);
-		bool isInInvite(std::string nickname);
+		bool isInvited(std::string nickname);
 		bool checkMode(char c);
 
 };

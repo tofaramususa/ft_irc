@@ -140,8 +140,6 @@ void Server::processChannelModes(Client *client, Channel &channel,
 	std::string modeString = params[1];
 	isAdding = true;
 	paramIndex = 2;
-	// std::string modeChanges = ":" + client->getNickname() + " MODE "
-	// 	+ channel.getChannelName() + " " + modeString;
 
 	std::string modeStr;
 	for (std::size_t i = 0; i < modeString.length(); ++i)
@@ -208,7 +206,6 @@ void Server::modeCommand(Client *client, const ParseMessage &parsedMsg)
 		return ;
 	}
 	std::string target = params[0];
-	// params.erase(params.begin());
 	if (target[0] == '#' || target[0] == '&')
 	{
 		handleChannelMode(client, target, params);

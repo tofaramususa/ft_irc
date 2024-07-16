@@ -8,7 +8,7 @@ void Server::privateMessage(Client *client, const ParseMessage &parsedMsg)
     const std::string& trailing = parsedMsg.getTrailing();
 	std::string receiver; 
 
-    if (params.empty() && trailing.empty())
+    if (params.empty() || trailing.empty())
     {
         if (params.empty())
             client->serverReplies.push_back(ERR_NORECIPIENT(client->getNickname()));

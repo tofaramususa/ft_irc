@@ -14,6 +14,8 @@ void Server::inviteCommand(Client *client, const ParseMessage &ParsedMsg)
     targetNickname = params[0];
     channelName = params[1];
     if (channelName.at(0) != '#' && channelName.at(0) != '&') {
+        response = ERR_NOSUCHCHANNEL(client->getNickname(), channelName);
+        client->serverReplies.push_back(response);
         return;
     }
     if (!isChannelInServer(channelName)) {

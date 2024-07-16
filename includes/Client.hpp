@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:37:35 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/07/12 17:24:14 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/07/15 16:43:47 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ class Client {
 
 		int							_fd;
 		bool						_isCorrectPassword;
-		// std::string					_ip;
 		std::string					_nickname;
 		std::string					_username;
 		std::string					_channel;
@@ -42,8 +41,6 @@ class Client {
 		Client( int fd );
 
 		bool		sendMessage( const std::string &message );
-		// void		joinChannel( const std::string &channel );
-		// void	leaveChannel( const std::string &channel );
 		
 		//SETTERS
 		void		setIsCorrectPassword( bool isCorrectPassword );
@@ -56,7 +53,6 @@ class Client {
 		std::string &getNickname( void ) const;
 		std::string getUsername( void ) const;
 		bool		getIsCorrectPassword( void ) const;
-		// std::string getIp( void ) const;
 		int			getFd( void ) const;
 };
 

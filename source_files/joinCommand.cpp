@@ -39,14 +39,14 @@ void Server::joinCommand(Client *client, const ParseMessage &ParsedMsg)
 				response = ERR_USERONCHANNEL(client->getUsername(), client->getNickname(), chanName);
 				allowedJoin = false;
 			}
-			else if(!tempChannel.isInInvite(client->getNickname()) && tempChannel.checkMode('l') 
+			else if(!tempChannel.isInvited(client->getNickname()) && tempChannel.checkMode('l') 
 					&&  static_cast<int>(tempChannel.getUsers().size()) >= tempChannel.getUserLimit())
 			{
 				response = ERR_CHANNELISFULL(client->getNickname(), chanName);
 				allowedJoin = false;
 			}
 			else if(tempChannel.checkMode('i')
-				&& !tempChannel.isInInvite(client->getNickname()))
+				&& !tempChannel.isInvited(client->getNickname()))
 			{
 				response = ERR_INVITEONLYCHAN(client->getNickname(), chanName);
 				allowedJoin = false;
@@ -72,7 +72,6 @@ void Server::joinCommand(Client *client, const ParseMessage &ParsedMsg)
 				response = greetJoinedUser(*client, tempChannel);
 			}
 			client->serverReplies.push_back(response);
-			// return;
 			break ;
 		}
 		else

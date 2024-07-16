@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 23:42:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/07/12 20:16:17 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/07/15 16:45:48 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void    Server::runServer(void) {
 				{
 					it->fd = -1;
 				}
-				// for(std::size_t)
 			} else if (it->fd != _listeningSocket && it->revents & POLLOUT ) {
 
 				sendToClient( it->fd );
@@ -260,9 +259,6 @@ void Server::closeClient( int client_fd ) {
 		_clients.erase(it);
 	}
 
-	// for (std::map<std::string, Channel>::iterator it = Server::_channels.begin(); it != Server::_channels.end(); ++it)
-	// 	it->second.removeClient(client_fd);
-
 	for ( std::vector<pollfd>::iterator it = _fds.begin(); it != _fds.end(); ) {
 
 		if ( it->fd == client_fd ) {
@@ -279,18 +275,6 @@ std::string Server::getServerPassword( void )
 {
 	return _serverPassword;
 }
-// void Server::authenticateClient(int client_fd, const std::string& password) {
-
-// 	std::cout << "_password: " << Server::_serverPassword << std::endl;
-// 	std::cout << "password: " << password << std::endl;
-// 	if (password == Server::_serverPassword) {
-// 		Server::_clients[client_fd]->setAuthenticated(true);
-// 		std::cout << "Client " << client_fd << " authenticated" << std::endl;
-// 	} else {
-// 		Server::_clients[client_fd]->sendMessage("ERROR: Invalid password");
-// 		std::cout << "Please enter the correct password" << std::endl;
-// 	}
-// }
 
 void Server::cleanupServer(void) {
 
@@ -305,24 +289,10 @@ void Server::cleanupServer(void) {
 	close(_listeningSocket);
 	_fds.clear();
 	_clients.clear();
-	// Server::_channels.clear();
 	delete Server::_instance;
 	exit (0);
 }
 
 Server* Server::_instance = NULL;
-// int Server::_listeningSocket = -1;
-// std::string Server::_serverPassword = "";
-// int Server::_serverPort = -1;
-// struct sockaddr_in Server::_serverHint;
-// int Server::_hintLen = 0;
-// std::string Server::_message = "";
-// char Server::_host[NI_MAXHOST];
-// char Server::_svc[NI_MAXSERV];
-// std::map<int, Client*> Server::_clients;
-// std::map<std::string, Channel> Server::_channels;
-// std::vector<pollfd> Server::_fds;
-// std::map<std::string, Channel>	Server::_channels;
-// std::vector<std::string>		Server::_nicknames;
 
 // Path: includes/Server.hpp
